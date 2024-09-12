@@ -29,7 +29,7 @@ RUN apt-get -qq update && apt-get -qq install -y curl unzip
 WORKDIR /tmp
 
 RUN curl -sSL https://github.com/protocolbuffers/protobuf/releases/download/v$PROTOBUF_VERSION/\
-protoc-$PROTOBUF_VERSION-linux-x86_64.zip -o protoc.zip && \
+  protoc-$PROTOBUF_VERSION-linux-x86_64.zip -o protoc.zip && \
   unzip -qq protoc.zip && \
   cp ./bin/protoc /usr/local/bin/protoc
 
@@ -41,7 +41,7 @@ RUN wget -nv -O buildifier \
 # Download third_party modules to be used for the next stage
 WORKDIR /github/grpc-web
 
-RUN git clone https://github.com/grpc/grpc-web .
+RUN git clone https://github.com/KathirvelChandrasekaran/grpc-web .
 COPY ./scripts/init_submodules.sh ./scripts/
 RUN ./scripts/init_submodules.sh
 
@@ -65,7 +65,7 @@ COPY --from=prepare /github/grpc-web/third_party /github/grpc-web/third_party
 
 RUN wget -nv -O bazel-installer.sh \
   https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/\
-bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
+  bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
   chmod +x ./bazel-installer.sh && \
   ./bazel-installer.sh && \
   rm ./bazel-installer.sh
